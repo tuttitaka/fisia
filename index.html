@@ -1,141 +1,340 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz de Personalidade</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz de Perfil Comportamental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: #333;
-    }
-    header {
-      width: 100%;
-      height: 400px;
-      background: url('fisia-store.jpg') center top/cover no-repeat;
-      position: relative;
-    }
-    header::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.3);
-    }
-    header .logo {
-      position: absolute;
-      top: 20px; left: 20px;
-      z-index: 2;
-      width: 150px;
-    }
+    body { font-family: 'Poppins', sans-serif; color: #333; }
+    header { width: 100%; height: 200px; background: #5151E5; position: relative; }
+    header .logo { position: absolute; top: 20px; left: 20px; z-index: 2; width: 120px; }
+    header .logo1 {
+  width: 100%;
+  background: #5151E5;
+}
     .container {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255,255,255,0.95);
       border-radius: 16px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      max-width: 600px;
+      max-width: 700px;
       width: 90%;
       margin: -80px auto 50px;
       padding: 30px;
       position: relative;
-      transition: background 0.6s ease;
-      animation: popIn 0.5s ease-out;
     }
-    @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-weight: 600;
-      animation: fadeIn 1s;
-    }
-    #progress {
-      position: absolute; top: 0; left: 0; height: 6px;
-      background: rgba(81,81,229,0.8); width: 0; transition: width 0.3s ease;
-    }
-    .question {
-      margin-bottom: 20px;
-      font-weight: 500;
-      font-size: 1.1rem;
-      animation: slideIn 0.5s;
-    }
+    #progress { position: absolute; top: 0; left: 0; height: 6px; background: #5151E5; width: 0; transition: width 0.3s ease; }
+    h1 { text-align: center; margin-bottom: 20px; font-weight: 600; color: #5151E5; }
+    .question { margin-bottom: 20px; font-weight: 500; font-size: 1.1rem; }
     .options label {
-      display: flex; align-items: center; margin-bottom: 12px; cursor: pointer;
-      padding: 10px; border: 2px solid transparent; border-radius: 8px;
-      transition: background 0.2s, border-color 0.2s; animation: fadeIn 0.7s;
+      display: flex; align-items: center; margin-bottom: 12px;
+      cursor: pointer; padding: 10px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s;
     }
     .options input[type="radio"] { margin-right: 12px; }
-    .options label:hover { background: rgba(81,81,229,0.1); border-color: rgba(81,81,229,0.3); }
+    .options label:hover {
+      background: rgba(81,81,229,0.1);
+      border-color: rgba(81,81,229,0.3);
+    }
     button {
-      display: block; width: 100%; padding: 12px; background-color: #5151E5;
-      color: #fff; border: none; border-radius: 8px; cursor: pointer;
-      font-size: 16px; font-weight: 600; margin-top: 20px; transition: background 0.3s;
-      animation: fadeIn 1s;
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #5151E5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 20px;
     }
     button:hover { background-color: #4141c5; }
     .result { text-align: center; margin-top: 30px; }
     .card {
-      background: rgba(255,255,255,0.95); padding: 20px; border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1); animation: popIn 0.5s;
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
     .card h2 { margin-bottom: 10px; color: #5151E5; }
     .card p { line-height: 1.5; }
-
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideIn { from { transform: translateX(-20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
     @media (max-width: 768px) {
-      header {
-        height: 250px;
-      }
-      header .logo {
-        width: 120px;
-      }
-      .container {
-        margin: -60px auto 30px;
-        padding: 20px;
-      }
-      h1 {
-        font-size: 1.4rem;
-      }
-      .question {
-        font-size: 1rem;
-      }
-      button {
-        font-size: 14px;
-      }
+      header { height: 150px; }
+      .container { margin: -60px auto 30px; padding: 20px; }
+      h1 { font-size: 1.4rem; }
+      .question { font-size: 1rem; }
+      button { font-size: 14px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.svg" alt="Logo" class="logo">
+    <img src="logo.svg" alt="Logo" class="logo"/>
+    <img src="fisia-store.jpg" alt="logo" class="logo1">
   </header>
+
   <div class="container" id="container">
     <div id="progress"></div>
-    <h1>Quiz de Personalidade</h1>
+    <h1>Quiz de Perfil Comportamental</h1>
     <div id="quiz"></div>
     <button id="nextBtn">Próxima</button>
     <div class="result" id="result"></div>
   </div>
-  </div>
+
   <script>
     const colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF'];
     const questions = [
-      { text: "1. Você prefere trabalhar em grupo ou sozinho?", options:[{text:"Em grupo",value:'extrovertido'},{text:"Sozinho",value:'introvertido'},{text:"Depende da tarefa",value:'ambivalente'},{text:"Gosto de balancear",value:'equilibrado'}]},
-      { text: "2. Você toma decisões com base em lógica ou emoção?", options:[{text:"Lógica",value:'analitico'},{text:"Emoção",value:'emocional'},{text:"Uma mistura",value:'equilibrado'},{text:"Depende da situação",value:'ambivalente'}]},
-      { text: "3. Você gosta de planejar tudo ou prefere improvisar?", options:[{text:"Planejar",value:'organizado'},{text:"Improvisar",value:'espontaneo'},{text:"Planejo o essencial",value:'equilibrado'},{text:"Depende do dia",value:'ambivalente'}]},
-      { text: "4. Você lida melhor com prazos apertados ou prefere tempo de sobra?", options:[{text:"Prazos apertados",value:'proativo'},{text:"Tempo de sobra",value:'calmo'},{text:"Depende do projeto",value:'flexivel'},{text:"Gosto de equilíbrio",value:'equilibrado'}]}
+      { text: '1. Eu sou...', options: [
+          { text: 'Idealista, criativo e visionário', value: 'I' },
+          { text: 'Divertido, espiritual e benéfico', value: 'C' },
+          { text: 'Confiável, meticuloso e previsível', value: 'O' },
+          { text: 'Focado, determinado e persistente', value: 'A' }
+        ]
+      },
+      { text: '2. Eu gosto de...', options: [
+          { text: 'Ser piloto', value: 'A' },
+          { text: 'Conversar com os passageiros', value: 'C' },
+          { text: 'Planejar a viagem', value: 'O' },
+          { text: 'Explorar novas rotas', value: 'I' }
+        ]
+      },
+      { text: '3. Se você quiser se dar bem comigo...', options: [
+          { text: 'Me dê liberdade', value: 'I' },
+          { text: 'Me deixe saber sua expectativa', value: 'O' },
+          { text: 'Lidere, siga ou saia do caminho', value: 'A' },
+          { text: 'Seja amigável, carinhoso e compreensivo', value: 'C' }
+        ]
+      },
+      { text: '4. Para conseguir obter bons resultados é preciso...', options: [
+          { text: 'Ter incertezas', value: 'I' },
+          { text: 'Controlar o essencial', value: 'O' },
+          { text: 'Diversão e celebração', value: 'C' },
+          { text: 'Planejar e obter recursos', value: 'A' }
+        ]
+      },
+      { text: '5. Eu me divirto quando...', options: [
+          { text: 'Estou me exercitando', value: 'A' },
+          { text: 'Tenho novidades', value: 'I' },
+          { text: 'Estou com os outros', value: 'C' },
+          { text: 'Determino as regras', value: 'O' }
+        ]
+      },
+      { text: '6. Eu penso que...', options: [
+          { text: 'Unidos venceremos, divididos perderemos', value: 'C' },
+          { text: 'O ataque é melhor que a defesa', value: 'A' },
+          { text: 'É bom ser manso, mas andar com um porrete', value: 'I' },
+          { text: 'Um homem prevenido vale por dois', value: 'O' }
+        ]
+      },
+      { text: '7. Minha preocupação é...', options: [
+          { text: 'Gerar a ideia global', value: 'I' },
+          { text: 'Fazer com que as pessoas gostem', value: 'C' },
+          { text: 'Fazer com que funcione', value: 'O' },
+          { text: 'Fazer com que aconteça', value: 'A' }
+        ]
+      },
+      { text: '8. Eu prefiro...', options: [
+          { text: 'Perguntas a respostas', value: 'I' },
+          { text: 'Ter todos os detalhes', value: 'O' },
+          { text: 'Vantagens a meu favor', value: 'A' },
+          { text: 'Que todos tenham a chance de ser ouvidos', value: 'C' }
+        ]
+      },
+      { text: '9. Eu gosto de...', options: [
+          { text: 'Fazer progresso', value: 'A' },
+          { text: 'Construir memórias', value: 'C' },
+          { text: 'Fazer sentido', value: 'O' },
+          { text: 'Tornar as pessoas confortáveis', value: 'I' }
+        ]
+      },
+      { text: '10. Eu gosto de chegar...', options: [
+          { text: 'Na frente', value: 'A' },
+          { text: 'Junto', value: 'C' },
+          { text: 'Na hora', value: 'O' },
+          { text: 'Em outro lugar', value: 'I' }
+        ]
+      },
+      { text: '11. Um ótimo dia para mim é quando...', options: [
+          { text: 'Consigo fazer muitas coisas', value: 'A' },
+          { text: 'Me divirto com meus amigos', value: 'C' },
+          { text: 'Tudo segue conforme planejado', value: 'O' },
+          { text: 'Desfruto de coisas novas e estimulantes', value: 'I' }
+        ]
+      },
+      { text: '12. Eu vejo a morte como...', options: [
+          { text: 'Uma grande aventura misteriosa', value: 'I' },
+          { text: 'Oportunidade de rever os falecidos', value: 'C' },
+          { text: 'Um modo de receber recompensas', value: 'O' },
+          { text: 'Algo que sempre chega muito cedo', value: 'A' }
+        ]
+      },
+      { text: '13. Minha filosofia de vida é...', options: [
+          { text: 'Há ganhadores e perdedores, e eu acredito ser um ganhador', value: 'A' },
+          { text: 'Para eu ganhar, ninguém precisa perder', value: 'C' },
+          { text: 'Para ganhar é preciso seguir as regras', value: 'O' },
+          { text: 'Para ganhar, é necessário inventar novas regras', value: 'I' }
+        ]
+      },
+      { text: '14. Eu sempre gostei de...', options: [
+          { text: 'Explorar', value: 'I' },
+          { text: 'Evitar surpresas', value: 'O' },
+          { text: 'Focalizar a meta', value: 'A' },
+          { text: 'Realizar uma abordagem natural', value: 'C' }
+        ]
+      },
+      { text: '15. Eu gosto de mudanças se...', options: [
+          { text: 'Me der uma vantagem competitiva', value: 'A' },
+          { text: 'For divertido e puder ser compartilhado', value: 'C' },
+          { text: 'Me der mais liberdade e variedade', value: 'I' },
+          { text: 'Melhorar ou me der mais controle', value: 'O' }
+        ]
+      },
+      { text: '16. Não existe nada de errado em...', options: [
+          { text: 'Se colocar na frente', value: 'A' },
+          { text: 'Colocar os outros na frente', value: 'C' },
+          { text: 'Mudar de ideia', value: 'I' },
+          { text: 'Ser consistente', value: 'O' }
+        ]
+      },
+      { text: '17. Eu gosto de buscar conselhos de...', options: [
+          { text: 'Pessoas bem-sucedidas', value: 'A' },
+          { text: 'Anciões e conselheiros', value: 'C' },
+          { text: 'Autoridades no assunto', value: 'O' },
+          { text: 'Lugares, os mais estranhos', value: 'I' }
+        ]
+      },
+      { text: '18. Meu lema é...', options: [
+          { text: 'Fazer o que precisa ser feito', value: 'I' },
+          { text: 'Fazer bem feito', value: 'O' },
+          { text: 'Fazer junto com o grupo', value: 'C' },
+          { text: 'Simplesmente fazer', value: 'A' }
+        ]
+      },
+      { text: '19. Eu gosto de...', options: [
+          { text: 'Complexidade, mesmo se confuso', value: 'I' },
+          { text: 'Ordem e sistematização', value: 'O' },
+          { text: 'Calor humano e animação', value: 'C' },
+          { text: 'Coisas claras e simples', value: 'A' }
+        ]
+      },
+      { text: '20. Tempo para mim é...', options: [
+          { text: 'Algo que detesto desperdiçar', value: 'A' },
+          { text: 'Um grande ciclo', value: 'C' },
+          { text: 'Uma flecha que leva ao inevitável', value: 'O' },
+          { text: 'Irrelevante', value: 'I' }
+        ]
+      },
+      { text: '21. Se eu fosse bilionário...', options: [
+          { text: 'Faria doações para entidades', value: 'C' },
+          { text: 'Criaria uma poupança avantajada', value: 'O' },
+          { text: 'Faria o que desse na cabeça', value: 'I' },
+          { text: 'Exibiria bastante com algumas pessoas', value: 'A' }
+        ]
+      },
+      { text: '22. Eu acredito que...', options: [
+          { text: 'O destino é mais importante que a jornada', value: 'A' },
+          { text: 'A jornada é mais importante que o destino', value: 'C' },
+          { text: 'Um centavo economizado é um centavo ganho', value: 'O' },
+          { text: 'Bastam um navio e uma estrela para navegar', value: 'I' }
+        ]
+      },
+      { text: '23. Eu acredito também que...', options: [
+          { text: 'Aquele que hesita está perdido', value: 'A' },
+          { text: 'De grão em grão a galinha enche o papo', value: 'O' },
+          { text: 'O que vai, volta', value: 'C' },
+          { text: 'Um sorriso ou uma careta é o mesmo para quem é cego', value: 'I' }
+        ]
+      },
+      { text: '24. Eu acredito ainda que...', options: [
+          { text: 'É melhor prudência do que arrependimento', value: 'O' },
+          { text: 'A autoridade deve ser desafiada', value: 'I' },
+          { text: 'Ganhar é fundamental', value: 'A' },
+          { text: 'O coletivo é mais importante do que o individual', value: 'C' }
+        ]
+      },
+      { text: '25. Eu penso que...', options: [
+          { text: 'Não é fácil ficar encurralado', value: 'I' },
+          { text: 'É preferível olhar, antes de pular', value: 'O' },
+          { text: 'Duas cabeças pensam melhor que uma', value: 'C' },
+          { text: 'Se você não tem condições de competir, não compita', value: 'A' }
+        ]
+      }
     ];
-    const descriptions = { extrovertido:{title:'Extrovertido',text:'Você é sociável, enérgico e se sente motivado em ambientes colaborativos.'},introvertido:{title:'Introvertido',text:'Você é introspectivo, prefere ambientes calmos e trabalha bem de forma independente.'},ambivalente:{title:'Ambivalente',text:'Você se adapta a diferentes situações, equilibrando momentos de introspecção e sociabilidade.'},equilibrado:{title:'Equilibrado',text:'Você busca o equilíbrio em todas as áreas, agindo com bom senso e adaptabilidade.'},analitico:{title:'Analítico',text:'Você valoriza a lógica e o raciocínio na tomada de decisões, sendo criterioso e racional.'},emocional:{title:'Emocional',text:'Você age com empatia e sensibilidade, priorizando os sentimentos nas decisões.'},organizado:{title:'Organizado',text:'Você gosta de planejar, criar estruturas e cumprir prazos com eficiência.'},espontaneo:{title:'Espontâneo',text:'Você lida bem com imprevistos, é criativo e gosta de liberdade para agir.'},proativo:{title:'Proativo',text:'Você se antecipa aos problemas e age rapidamente para resolvê-los.'},calmo:{title:'Calmo',text:'Você transmite tranquilidade, lida bem com pressão e mantém o foco mesmo em situações difíceis.'},flexivel:{title:'Flexível',text:'Você é adaptável e consegue mudar de estratégia conforme a situação exige.'}};
-    let currentQuestion=0; const scores={}, quizEl=document.getElementById('quiz'), nextBtn=document.getElementById('nextBtn'), resultEl=document.getElementById('result'), progressEl=document.getElementById('progress'), container=document.getElementById('container');
-    function updateProgress(){progressEl.style.width=((currentQuestion)/questions.length)*100+'%';}
-    function updateBackground(){container.style.background=colors[currentQuestion%colors.length];}
-    function showQuestion(){updateBackground();updateProgress();let q=questions[currentQuestion];quizEl.innerHTML=`<div class="question">${q.text}</div><div class="options">${q.options.map((opt,idx)=>`<label><input type="radio" name="option" value="${opt.value}" ${idx===0?'checked':''}> ${opt.text}</label>`).join('')}</div>`;nextBtn.textContent=currentQuestion===questions.length-1?'Ver Resultado':'Próxima';}
-    function nextStep(){let sel=document.querySelector('input[name="option"]:checked').value;scores[sel]=(scores[sel]||0)+1;currentQuestion++;currentQuestion<questions.length?showQuestion():showResult();}
-    function showResult(){progressEl.style.width='100%';nextBtn.style.display='none';quizEl.style.display='none';const highest=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);const desc=descriptions[highest];resultEl.innerHTML=`<div class="card"><h2>${desc.title}</h2><p>${desc.text}</p></div>`;}
-    nextBtn.addEventListener('click',nextStep);
+
+    const descriptions = {
+      I: {
+        title: 'Águia Emocional',
+        text: 'Comportamentos: Criativo, intuitivo, foco no futuro, flexível. Pontos fortes: Idealização, mudanças radicais, criatividade. Pontos de melhoria: Impaciência, defender o novo pelo novo. Motivações: Liberdade, descentralização. Valores: Criatividade e liberdade.'
+      },
+      C: {
+        title: 'Gato',
+        text: 'Comportamentos: Sensível, tradicional, busca harmonia. Pontos fortes: Comunicação, cultura empresarial. Pontos de melhoria: Esconder conflitos, manipulação emocional. Motivações: Segurança, aceitação social. Valores: Felicidade e igualdade.'
+      },
+      A: {
+        title: 'Tubarão Racional',
+        text: 'Comportamentos: Ação, iniciativa, competitivo. Pontos fortes: Fazer acontecer, parar a burocracia. Pontos de melhoria: Socialmente complicado, busca por facilidade. Motivações: Controle, competição, variedade. Valores: Resultados.'
+      },
+      O: {
+        title: 'Lobo',
+        text: 'Comportamentos: Detalhista, conservador, estrategista. Pontos fortes: Organização, consistência, lealdade. Pontos de melhoria: Dificuldade com mudanças, excesso de estrutura. Motivações: Regras claras, ausência de riscos. Valores: Ordem e controle.'
+      }
+    };
+
+    let currentQuestion = 0;
+    const scores = { I:0, C:0, O:0, A:0 };
+    const quizEl = document.getElementById('quiz');
+    const nextBtn = document.getElementById('nextBtn');
+    const resultEl = document.getElementById('result');
+    const progressEl = document.getElementById('progress');
+    const container = document.getElementById('container');
+
+    function updateProgress() {
+      progressEl.style.width = ((currentQuestion) / questions.length) * 100 + '%';
+    }
+
+    function updateBackground() {
+      container.style.background = colors[currentQuestion % colors.length];
+    }
+
+    function showQuestion() {
+      updateBackground();
+      updateProgress();
+      const q = questions[currentQuestion];
+      quizEl.innerHTML = `
+        <div class="question">${q.text}</div>
+        <div class="options">
+          ${q.options.map((opt, idx) =>
+            `<label><input type="radio" name="option" value="${opt.value}" ${idx===0?'checked':''}> ${opt.text}</label>`
+          ).join('')}
+        </div>`;
+      nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Ver Resultado' : 'Próxima';
+    }
+
+    function nextStep() {
+      const sel = document.querySelector('input[name="option"]:checked').value;
+      scores[sel]++;
+      currentQuestion++;
+      currentQuestion < questions.length ? showQuestion() : showResult();
+    }
+
+    function showResult() {
+      progressEl.style.width = '100%';
+      nextBtn.style.display = 'none';
+      quizEl.style.display = 'none';
+      const highest = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+      const desc = descriptions[highest];
+      resultEl.innerHTML = `
+        <div class="card">
+          <h2>${desc.title}</h2>
+          <p>${desc.text}</p>
+        </div>`;
+    }
+
+    nextBtn.addEventListener('click', nextStep);
     showQuestion();
   </script>
 </body>
