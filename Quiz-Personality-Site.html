@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Personalidade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+    }
+    header {
+      width: 100%;
+      height: 400px;
+      background: url('fisia-store.jpg') center top/cover no-repeat;
+      position: relative;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.3);
+    }
+    header .logo {
+      position: absolute;
+      top: 20px; left: 20px;
+      z-index: 2;
+      width: 150px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-width: 600px;
+      width: 90%;
+      margin: -80px auto 50px;
+      padding: 30px;
+      position: relative;
+      transition: background 0.6s ease;
+      animation: popIn 0.5s ease-out;
+    }
+    @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+      animation: fadeIn 1s;
+    }
+    #progress {
+      position: absolute; top: 0; left: 0; height: 6px;
+      background: rgba(81,81,229,0.8); width: 0; transition: width 0.3s ease;
+    }
+    .question {
+      margin-bottom: 20px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      animation: slideIn 0.5s;
+    }
+    .options label {
+      display: flex; align-items: center; margin-bottom: 12px; cursor: pointer;
+      padding: 10px; border: 2px solid transparent; border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s; animation: fadeIn 0.7s;
+    }
+    .options input[type="radio"] { margin-right: 12px; }
+    .options label:hover { background: rgba(81,81,229,0.1); border-color: rgba(81,81,229,0.3); }
+    button {
+      display: block; width: 100%; padding: 12px; background-color: #5151E5;
+      color: #fff; border: none; border-radius: 8px; cursor: pointer;
+      font-size: 16px; font-weight: 600; margin-top: 20px; transition: background 0.3s;
+      animation: fadeIn 1s;
+    }
+    button:hover { background-color: #4141c5; }
+    .result { text-align: center; margin-top: 30px; }
+    .card {
+      background: rgba(255,255,255,0.95); padding: 20px; border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1); animation: popIn 0.5s;
+    }
+    .card h2 { margin-bottom: 10px; color: #5151E5; }
+    .card p { line-height: 1.5; }
+
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideIn { from { transform: translateX(-20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    @media (max-width: 768px) {
+      header {
+        height: 250px;
+      }
+      header .logo {
+        width: 120px;
+      }
+      .container {
+        margin: -60px auto 30px;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .question {
+        font-size: 1rem;
+      }
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.svg" alt="Logo" class="logo">
+  </header>
+  <div class="container" id="container">
+    <div id="progress"></div>
+    <h1>Quiz de Personalidade</h1>
+    <div id="quiz"></div>
+    <button id="nextBtn">Próxima</button>
+    <div class="result" id="result"></div>
+  </div>
+  </div>
+  <script>
+    const colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF'];
+    const questions = [
+      { text: "1. Você prefere trabalhar em grupo ou sozinho?", options:[{text:"Em grupo",value:'extrovertido'},{text:"Sozinho",value:'introvertido'},{text:"Depende da tarefa",value:'ambivalente'},{text:"Gosto de balancear",value:'equilibrado'}]},
+      { text: "2. Você toma decisões com base em lógica ou emoção?", options:[{text:"Lógica",value:'analitico'},{text:"Emoção",value:'emocional'},{text:"Uma mistura",value:'equilibrado'},{text:"Depende da situação",value:'ambivalente'}]},
+      { text: "3. Você gosta de planejar tudo ou prefere improvisar?", options:[{text:"Planejar",value:'organizado'},{text:"Improvisar",value:'espontaneo'},{text:"Planejo o essencial",value:'equilibrado'},{text:"Depende do dia",value:'ambivalente'}]},
+      { text: "4. Você lida melhor com prazos apertados ou prefere tempo de sobra?", options:[{text:"Prazos apertados",value:'proativo'},{text:"Tempo de sobra",value:'calmo'},{text:"Depende do projeto",value:'flexivel'},{text:"Gosto de equilíbrio",value:'equilibrado'}]}
+    ];
+    const descriptions = { extrovertido:{title:'Extrovertido',text:'Você é sociável, enérgico e se sente motivado em ambientes colaborativos.'},introvertido:{title:'Introvertido',text:'Você é introspectivo, prefere ambientes calmos e trabalha bem de forma independente.'},ambivalente:{title:'Ambivalente',text:'Você se adapta a diferentes situações, equilibrando momentos de introspecção e sociabilidade.'},equilibrado:{title:'Equilibrado',text:'Você busca o equilíbrio em todas as áreas, agindo com bom senso e adaptabilidade.'},analitico:{title:'Analítico',text:'Você valoriza a lógica e o raciocínio na tomada de decisões, sendo criterioso e racional.'},emocional:{title:'Emocional',text:'Você age com empatia e sensibilidade, priorizando os sentimentos nas decisões.'},organizado:{title:'Organizado',text:'Você gosta de planejar, criar estruturas e cumprir prazos com eficiência.'},espontaneo:{title:'Espontâneo',text:'Você lida bem com imprevistos, é criativo e gosta de liberdade para agir.'},proativo:{title:'Proativo',text:'Você se antecipa aos problemas e age rapidamente para resolvê-los.'},calmo:{title:'Calmo',text:'Você transmite tranquilidade, lida bem com pressão e mantém o foco mesmo em situações difíceis.'},flexivel:{title:'Flexível',text:'Você é adaptável e consegue mudar de estratégia conforme a situação exige.'}};
+    let currentQuestion=0; const scores={}, quizEl=document.getElementById('quiz'), nextBtn=document.getElementById('nextBtn'), resultEl=document.getElementById('result'), progressEl=document.getElementById('progress'), container=document.getElementById('container');
+    function updateProgress(){progressEl.style.width=((currentQuestion)/questions.length)*100+'%';}
+    function updateBackground(){container.style.background=colors[currentQuestion%colors.length];}
+    function showQuestion(){updateBackground();updateProgress();let q=questions[currentQuestion];quizEl.innerHTML=`<div class="question">${q.text}</div><div class="options">${q.options.map((opt,idx)=>`<label><input type="radio" name="option" value="${opt.value}" ${idx===0?'checked':''}> ${opt.text}</label>`).join('')}</div>`;nextBtn.textContent=currentQuestion===questions.length-1?'Ver Resultado':'Próxima';}
+    function nextStep(){let sel=document.querySelector('input[name="option"]:checked').value;scores[sel]=(scores[sel]||0)+1;currentQuestion++;currentQuestion<questions.length?showQuestion():showResult();}
+    function showResult(){progressEl.style.width='100%';nextBtn.style.display='none';quizEl.style.display='none';const highest=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);const desc=descriptions[highest];resultEl.innerHTML=`<div class="card"><h2>${desc.title}</h2><p>${desc.text}</p></div>`;}
+    nextBtn.addEventListener('click',nextStep);
+    showQuestion();
+  </script>
+</body>
+</html>
